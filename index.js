@@ -24,7 +24,7 @@ const descargarImagen = async (url, filename) => {
 
     const filePath = path.join(tempDir, filename);
     await fse.ensureDir(tempDir); // Asegurar que el directorio existe
-    
+
     const writer = fs.createWriteStream(filePath);
     response.data.pipe(writer);
 
@@ -92,7 +92,6 @@ const enviarDatos = async (data) => {
   try {
     const response = await axios.post('http://localhost:1338/api/autores/', { data });
 
-    // console.log('Datos enviados exitosamente:', response.data);
   } catch (error) {
     if (error.response) {
       console.error('Error en la respuesta de la API:', error.response.data);
