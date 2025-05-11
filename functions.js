@@ -12,7 +12,8 @@ const delay = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
 
 const instance = () => {
   const ins = axios.create({
-    baseURL: "http://127.0.0.0:1338/api",
+    baseURL: "http://localhost:1338/api",
+    // baseURL: "http://127.0.0.0:1338/api",
   });
 
   ins.interceptors.response.use(
@@ -309,6 +310,26 @@ const findCollection = async (endpoint) => {
   }
 };
 
+/**
+ * Buscar la coleccion en Strapi 
+ * 
+ * @param { string } endpoint
+ * @param { Array<any> } data - lista de any
+ * @returns { Promise< any > } Retorna un mensaje
+ */
+const updateCollections = async (endpoint, data) => {
+  try {
+    const response = await instance().post(`/${endpoint}`, data);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      console.error('Error en la respuesta de la API:', error.response.data);
+    } else {
+      console.error('Error durante la solicitud:', error.message);
+    }
+  }
+};
+
 module.exports = {
   slugify,
   getRecords,
@@ -320,4 +341,5 @@ module.exports = {
   cleanUpTempImages,
   createJSON,
   findCollection,
+  updateCollections,
 }
